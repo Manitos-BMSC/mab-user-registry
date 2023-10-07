@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: mab-user-registry
+server:
+  port: 8000
+eureka:
+    client:
+      service-url:
+        defaultZone: http://localhost:8761/eureka/
