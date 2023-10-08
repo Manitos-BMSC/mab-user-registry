@@ -4,6 +4,8 @@ import bo.edu.ucb.mabuserregistry.bl.RegistryBl;
 import bo.edu.ucb.mabuserregistry.dto.DoctorDto;
 import bo.edu.ucb.mabuserregistry.dto.PatientDto;
 import bo.edu.ucb.mabuserregistry.dto.ResponseDto;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,17 +31,20 @@ public class RegitryApi {
 
     @PostMapping("/patient")
     public ResponseEntity<ResponseDto<PatientDto>> createPatient(
-            @RequestParam("data") PatientDto patientDto,
+            @RequestParam("data") String patientDtoJson,
             @RequestParam("image") MultipartFile image,
             @RequestParam("clinicHistory") MultipartFile clinicHistory,
             @RequestParam("participationVideo") MultipartFile participationVideo,
             @RequestParam("personalDocument") MultipartFile personalDocument
-    ) {
+    ) throws JsonProcessingException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        PatientDto patientDto = objectMapper.readValue(patientDtoJson, PatientDto.class);
         PatientDto patientResponse = registryBl.createPatient(patientDto);
         int code = 200;
         String message = "OK";
         Boolean success = true;
         ResponseDto<PatientDto> response = new ResponseDto<>(success, message, code, patientResponse);
+        System.out.println("response: " + response);
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 

@@ -7,8 +7,8 @@ public class PatientDto extends PersonDto{
     public PatientDto() {
     }
 
-    public PatientDto(String name, String lastName, String email, String phone, String birthDate, Boolean isMale, String address, int cityId, Boolean isPassport, String documentNumber, String emergencyPhone, int countryId) {
-        super(name, lastName, email, phone, birthDate, isMale, address, cityId, isPassport, documentNumber);
+    public PatientDto(String name, String lastName, String email, String phone, String birthDate, Boolean isMan, String address, int cityId, Boolean isPassport, String documentNumber, String emergencyPhone, int countryId) {
+        super(name, lastName, email, phone, birthDate, isMan, address, cityId, isPassport, documentNumber);
         this.emergencyPhone = emergencyPhone;
         this.countryId = countryId;
     }
