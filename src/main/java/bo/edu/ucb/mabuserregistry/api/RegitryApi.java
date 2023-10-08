@@ -39,6 +39,8 @@ public class RegitryApi {
     ) throws JsonProcessingException {
         ObjectMapper objectMapper = new ObjectMapper();
         PatientDto patientDto = objectMapper.readValue(patientDtoJson, PatientDto.class);
+        System.out.println("patientDto: " + patientDto);
+
         PatientDto patientResponse = registryBl.createPatient(patientDto);
         int code = 200;
         String message = "OK";
@@ -50,10 +52,13 @@ public class RegitryApi {
 
     @PostMapping("/doctor")
     public ResponseEntity<ResponseDto<DoctorDto>> createDoctor(
-        @RequestParam("data") DoctorDto doctorDto,
+        @RequestParam("data") String doctorDtoJson,
         @RequestParam("doctorPicture") MultipartFile doctorPicture,
         @RequestParam("personalDocument") MultipartFile personalDocument
-    ) {
+    ) throws JsonProcessingException {
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        DoctorDto doctorDto = objectMapper.readValue(doctorDtoJson, DoctorDto.class);
         DoctorDto doctorResponse = registryBl.createDoctor(doctorDto);
         int code = 200;
         String message = "OK";

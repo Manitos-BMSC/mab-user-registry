@@ -28,4 +28,12 @@ public class PatientDto extends PersonDto{
     public void setCountryId(int countryId) {
         this.countryId = countryId;
     }
+
+    @Override
+    public String toString() {
+        return "PatientDto{" +
+                "emergencyPhone='" + emergencyPhone + '\'' +
+                ", countryId=" + countryId +
+                '}';
+    }
 }
