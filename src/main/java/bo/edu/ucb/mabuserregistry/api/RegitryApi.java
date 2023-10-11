@@ -39,7 +39,6 @@ public class RegitryApi {
     ) throws JsonProcessingException {
         ObjectMapper objectMapper = new ObjectMapper();
         PatientDto patientDto = objectMapper.readValue(patientDtoJson, PatientDto.class);
-        System.out.println("patientDto: " + patientDto);
 
         PatientDto patientResponse = registryBl.createPatient(patientDto);
         int code = 200;
