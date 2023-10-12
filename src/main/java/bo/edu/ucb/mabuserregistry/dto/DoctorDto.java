@@ -1,5 +1,7 @@
 package bo.edu.ucb.mabuserregistry.dto;
 
+import java.util.Date;
+
 public class DoctorDto extends PersonDto{
 
     private String licenseCode;
@@ -10,7 +12,7 @@ public class DoctorDto extends PersonDto{
     public DoctorDto() {
     }
 
-    public DoctorDto(String name, String lastName, String email, String phone, String birthDate, Boolean isMale, String address, int cityId, Boolean isPassport, String documentNumber, String licenseCode, String licenseDueDate, String speciality, int hospitalId) {
+    public DoctorDto(String name, String lastName, String email, String phone, Date birthDate, Boolean isMale, String address, int cityId, Boolean isPassport, String documentNumber, String licenseCode, String licenseDueDate, String speciality, int hospitalId) {
         super(name, lastName, email, phone, birthDate, isMale, address, cityId, isPassport, documentNumber);
         this.licenseCode = licenseCode;
         this.licenseDueDate = licenseDueDate;

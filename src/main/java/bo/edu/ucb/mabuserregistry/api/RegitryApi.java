@@ -38,9 +38,10 @@ public class RegitryApi {
             @RequestParam("personalDocument") MultipartFile personalDocument
     ) throws JsonProcessingException {
         ObjectMapper objectMapper = new ObjectMapper();
+        logger.info("patientDtoJson: " + patientDtoJson);
         PatientDto patientDto = objectMapper.readValue(patientDtoJson, PatientDto.class);
-
-        PatientDto patientResponse = registryBl.createPatient(patientDto);
+        logger.info("patientDto: " + patientDto);
+        PatientDto patientResponse = registryBl.createPatient(patientDto, image, clinicHistory, participationVideo, personalDocument);
         int code = 200;
         String message = "OK";
         Boolean success = true;
