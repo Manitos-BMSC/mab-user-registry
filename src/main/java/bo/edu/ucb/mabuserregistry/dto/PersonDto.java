@@ -1,12 +1,18 @@
 package bo.edu.ucb.mabuserregistry.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import java.util.Date;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
+
 public class PersonDto {
 
     private String name;
     private String lastName;
     private String email;
     private String phone;
-    private String birthDate;
+    private Date birthDate;
     private Boolean isMale;
     private String address;
 
@@ -17,7 +23,7 @@ public class PersonDto {
     public PersonDto() {
     }
 
-    public PersonDto(String name, String lastName, String email, String phone, String birthDate, Boolean isMale, String address, int cityId, Boolean isPassport, String documentNumber) {
+    public PersonDto(String name, String lastName, String email, String phone, Date birthDate, Boolean isMale, String address, int cityId, Boolean isPassport, String documentNumber) {
         this.name = name;
         this.lastName = lastName;
         this.email = email;
@@ -62,11 +68,11 @@ public class PersonDto {
         this.phone = phone;
     }
 
-    public String getBirthDate() {
+    public Date getBirthDate() {
         return birthDate;
     }
 
-    public void setBirthDate(String birthDate) {
+    public void setBirthDate(Date birthDate) {
         this.birthDate = birthDate;
     }
 
