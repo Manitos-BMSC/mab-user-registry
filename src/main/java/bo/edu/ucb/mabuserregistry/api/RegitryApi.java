@@ -53,13 +53,12 @@ public class RegitryApi {
     @PostMapping("/doctor")
     public ResponseEntity<ResponseDto<DoctorDto>> createDoctor(
         @RequestParam("data") String doctorDtoJson,
-        @RequestParam("doctorPicture") MultipartFile doctorPicture,
-        @RequestParam("personalDocument") MultipartFile personalDocument
+        @RequestParam("doctorPicture") MultipartFile doctorPicture
     ) throws JsonProcessingException {
 
         ObjectMapper objectMapper = new ObjectMapper();
         DoctorDto doctorDto = objectMapper.readValue(doctorDtoJson, DoctorDto.class);
-        DoctorDto doctorResponse = registryBl.createDoctor(doctorDto);
+        DoctorDto doctorResponse = registryBl.createDoctor(doctorDto, doctorPicture);
         int code = 200;
         String message = "OK";
         Boolean success = true;

@@ -21,14 +21,14 @@ public class DoctorDto{
     private Boolean isPassport;
     private int cityId;
     private String licenseCode;
-    private String licenseDueDate;
+    private Date licenseDueDate;
     private String speciality;
     private int hospitalId;
 
     public DoctorDto() {
     }
 
-    public DoctorDto(String name, String lastName, String email, String phone, Date birthDate, Boolean isMale, String address, String username, String documentNumber, Boolean isPassport, int cityId, String licenseCode, String licenseDueDate, String speciality, int hospitalId) {
+    public DoctorDto(String name, String lastName, String email, String phone, Date birthDate, Boolean isMale, String address, String username, String documentNumber, Boolean isPassport, int cityId, String licenseCode, Date licenseDueDate, String speciality, int hospitalId) {
         this.name = name;
         this.lastName = lastName;
         this.email = email;
@@ -142,11 +142,11 @@ public class DoctorDto{
         this.licenseCode = licenseCode;
     }
 
-    public String getLicenseDueDate() {
+    public Date getLicenseDueDate() {
         return licenseDueDate;
     }
 
-    public void setLicenseDueDate(String licenseDueDate) {
+    public void setLicenseDueDate(Date licenseDueDate) {
         this.licenseDueDate = licenseDueDate;
     }
 

@@ -40,6 +40,9 @@ public class RegistryBl {
     @Autowired
     private S3ObjectRepository s3ObjectRepository;
 
+    @Autowired
+    private DoctorRepository doctorRepository;
+
 
 
 
@@ -140,7 +143,45 @@ public class RegistryBl {
         return patientDto;
     }
 
-    public DoctorDto createDoctor(DoctorDto doctorDto) {
+    public DoctorDto createDoctor(DoctorDto doctorDto, MultipartFile image) {
+        logger.info("Saving doctor on database");
+        person.setIdKeycloack("2"); //TODO put the keycloack id
+        Optional<City> doctorCity = cityRepository.findById(doctorDto.getCityId());
+        person.setCity(doctorCity.get());
+        person.setName(doctorDto.getName());
+        person.setLastname(doctorDto.getLastName());
+        person.setUserMail(doctorDto.getEmail());
+        person.setUsername(doctorDto.getUsername());
+        person.setPhoneNumber(doctorDto.getPhone());
+        person.setDocumentType(doctorDto.getPassport());
+        person.setDocumentNumber(doctorDto.getDocumentNumber());
+        person.setBirthDate(doctorDto.getBirthDate());
+        person.setAddress(doctorDto.getAddress());
+        person.setPersonalDocument(image.getOriginalFilename());
+        person.setGender(doctorDto.getMale());
+        person.setTxUser("1");
+        person.setTxHost("localhost");
+        person.setTxDate(new Date());
+        person.setStatus(true);
+        logger.info(doctorDto.toString());
+
+        logger.info("Person saved on database");
+        logger.info("Uploading image to bucket: " + bucketImage);
+        FileDto imageRes = fileUploaderService.uploadFile(image, bucketImage, false);
+
+        logger.info("Saving doctor on database");
+        Doctor doctor = new Doctor();
+        doctor.setPerson(person);
+        doctor.setS3ObjectId(imageRes.getS3ObjectId());
+        doctor.setLicenseCode(doctorDto.getLicenseCode());
+        doctor.setLicenseDueDate(doctorDto.getLicenseDueDate());
+        doctor.setLicenseStatus("Activo");
+        doctor.setMedicalSpeciality(doctorDto.getSpeciality());
+        doctor.setStatus(true);
+
+        personRepository.save(person);
+        doctorRepository.save(doctor);
+        logger.info("Doctor saved on database");
         //TODO: Implementar la lógica de negocio para la creacion de nuevo doctor
         return doctorDto;
     }
