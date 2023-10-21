@@ -24,7 +24,7 @@ public class Pacient {
     private Boolean status;
 
     @OneToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    @JoinColumn(name = "MAB_person_id_keycloack", referencedColumnName = "id_keycloack")
     private Person person;
 
     @OneToMany(mappedBy = "pacient") // One-to-many relationship with Files_pacient

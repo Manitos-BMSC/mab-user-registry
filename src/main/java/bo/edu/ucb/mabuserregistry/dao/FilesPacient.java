@@ -1,9 +1,11 @@
 package bo.edu.ucb.mabuserregistry.dao;
 
 import jakarta.persistence.*;
+import org.springframework.stereotype.Service;
 
 import java.util.Date;
 
+@Service
 @Entity
 @Table(name = "Files_pacient")
 public class FilesPacient {

@@ -3,13 +3,13 @@ spring:
     name: mab-user-registry
   servlet:
     multipart:
-      max-file-size: 10MB   # Set your desired maximum file size here
-      max-request-size: 10MB  # Set the maximum request size here if needed
+      max-file-size: 100MB   # Set your desired maximum file size here
+      max-request-size: 100MB  # Set the maximum request size here if needed
   datasource:
     driver-class-name: org.postgresql.Driver
     username: ${DB_USER:postgres}
-    password: ${DB_PASSWORD:123456}
-    url: ${DB_URL:jdbc:postgresql://localhost:5434/mab_manitos_db}
+    password: ${DB_PASSWORD:lEtfbOBZDtAg4v7}
+    url: ${DB_URL:jdbc:postgresql://192.241.149.226:5432/db_mab}
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     hibernate:
@@ -24,4 +24,7 @@ eureka:
         defaultZone: http://localhost:8761/eureka/
 minio:
   bucket:
-    name: ${MINIO_BUCKET_NAME:bmsc2023}
+    image: ${MINIO_BUCKET_IMAGE:mab-images}
+    video: ${MINIO_BUCKET_VIDEO:mab-videos}
+    documents: ${MINIO_BUCKET_DOCUMENTS:mab-documents}
+    name: ${MINIO_BUCKET_PERSONAL:personal-info}

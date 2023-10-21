@@ -10,63 +10,71 @@ import java.util.Date;
 @Table(name = "MAB_person")
 public class Person {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(name = "id_keycloack")
+    private String idKeycloack;
 
-    @Column(name = "city_id", nullable = false)
-    private Integer cityId;
+    @ManyToOne
+    @JoinColumn(name = "city_id")
+    private City city;
 
-    @Column(name = "name", length = 50, nullable = false)
+    @Column(name = "name")
     private String name;
 
-    @Column(name = "lastname", length = 50, nullable = false)
+    @Column(name = "lastname")
     private String lastname;
 
-    @Column(name = "user_mail", length = 50, nullable = false)
+    @Column(name = "user_mail")
     private String userMail;
 
-    @Column(name = "phone_number", length = 30, nullable = false)
+    @Column(name = "username")
+    private String username;
+
+    @Column(name = "phone_number")
     private String phoneNumber;
 
-    @Column(name = "document_type", nullable = false)
-    private Boolean documentType;
+    @Column(name = "document_type")
+    private boolean documentType;
 
-    @Column(name = "document_number", length = 50, nullable = false)
+    @Column(name = "document_number")
     private String documentNumber;
 
-    @Column(name = "birth_date", nullable = false)
+    @Temporal(TemporalType.DATE)
+    @Column(name = "birth_date")
     private Date birthDate;
 
-    @Column(name = "address", length = 50, nullable = false)
+    @Column(name = "address")
     private String address;
 
-    @Column(name = "personal_document", length = 100, nullable = false)
+    @Column(name = "personal_document")
     private String personalDocument;
 
-    @Column(name = "gender", nullable = false)
-    private Boolean gender;
+    @Column(name = "gender")
+    private boolean gender;
 
-    @Column(name = "tx_user", length = 30, nullable = false)
+    @Column(name = "tx_user")
     private String txUser;
 
-    @Column(name = "tx_host", length = 30, nullable = false)
+    @Column(name = "tx_host")
     private String txHost;
 
-    @Column(name = "tx_date", nullable = false)
+    @Temporal(TemporalType.DATE)
+    @Column(name = "tx_date")
     private Date txDate;
 
-    @Column(name = "status", nullable = false)
-    private Boolean status;
+    @Column(name = "status")
+    private boolean status;
+
 
     public Person() {
     }
 
-    public Person(Long id, Integer cityId, String name, String lastname, String userMail, String phoneNumber, Boolean documentType, String documentNumber, Date birthDate, String address, String personalDocument, Boolean gender, String txUser, String txHost, Date txDate, Boolean status) {
-        this.id = id;
-        this.cityId = cityId;
+    public Person(String idKeycloack, City city, String name, String lastname, String userMail, String username, String phoneNumber, boolean documentType, String documentNumber, Date birthDate, String address, String personalDocument, boolean gender, String txUser, String txHost, Date txDate, boolean status) {
+        this.idKeycloack = idKeycloack;
+        this.city = city;
         this.name = name;
         this.lastname = lastname;
         this.userMail = userMail;
+        this.username = username;
         this.phoneNumber = phoneNumber;
         this.documentType = documentType;
         this.documentNumber = documentNumber;
@@ -80,20 +88,20 @@ public class Person {
         this.status = status;
     }
 
-    public Long getId() {
-        return id;
+    public String getIdKeycloack() {
+        return idKeycloack;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setIdKeycloack(String idKeycloack) {
+        this.idKeycloack = idKeycloack;
     }
 
-    public Integer getCityId() {
-        return cityId;
+    public City getCity() {
+        return city;
     }
 
-    public void setCityId(Integer cityId) {
-        this.cityId = cityId;
+    public void setCity(City city) {
+        this.city = city;
     }
 
     public String getName() {
@@ -120,6 +128,14 @@ public class Person {
         this.userMail = userMail;
     }
 
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
     public String getPhoneNumber() {
         return phoneNumber;
     }
@@ -128,11 +144,11 @@ public class Person {
         this.phoneNumber = phoneNumber;
     }
 
-    public Boolean getDocumentType() {
+    public boolean isDocumentType() {
         return documentType;
     }
 
-    public void setDocumentType(Boolean documentType) {
+    public void setDocumentType(boolean documentType) {
         this.documentType = documentType;
     }
 
@@ -168,11 +184,11 @@ public class Person {
         this.personalDocument = personalDocument;
     }
 
-    public Boolean getGender() {
+    public boolean isGender() {
         return gender;
     }
 
-    public void setGender(Boolean gender) {
+    public void setGender(boolean gender) {
         this.gender = gender;
     }
 
@@ -200,12 +216,35 @@ public class Person {
         this.txDate = txDate;
     }
 
-    public Boolean getStatus() {
+    public boolean isStatus() {
         return status;
     }
 
-    public void setStatus(Boolean status) {
+    public void setStatus(boolean status) {
         this.status = status;
+    }
+
+    @Override
+    public String toString() {
+        return "Person{" +
+                "idKeycloack='" + idKeycloack + '\'' +
+                ", city=" + city +
+                ", name='" + name + '\'' +
+                ", lastname='" + lastname + '\'' +
+                ", userMail='" + userMail + '\'' +
+                ", username='" + username + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", documentType=" + documentType +
+                ", documentNumber='" + documentNumber + '\'' +
+                ", birthDate=" + birthDate +
+                ", address='" + address + '\'' +
+                ", personalDocument='" + personalDocument + '\'' +
+                ", gender=" + gender +
+                ", txUser='" + txUser + '\'' +
+                ", txHost='" + txHost + '\'' +
+                ", txDate=" + txDate +
+                ", status=" + status +
+                '}';
     }
 }
 

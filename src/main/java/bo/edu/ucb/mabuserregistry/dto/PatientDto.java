@@ -14,15 +14,17 @@ public class PatientDto{
     private Boolean isMale;
     private String address;
 
+    private String username;
+
     private String documentNumber;
     private Boolean isPassport;
-    private int cityId;
+    private Integer cityId;
     private String emergencyPhone;
 
     public PatientDto() {
     }
 
-    public PatientDto(String name, String lastName, String email, String phone, Date birthDate, Boolean isMale, String address, String documentNumber, Boolean isPassport, int cityId, String emergencyPhone) {
+    public PatientDto(String name, String lastName, String email, String phone, Date birthDate, Boolean isMale, String address, String username, String documentNumber, Boolean isPassport, Integer cityId, String emergencyPhone) {
         this.name = name;
         this.lastName = lastName;
         this.email = email;
@@ -30,6 +32,7 @@ public class PatientDto{
         this.birthDate = birthDate;
         this.isMale = isMale;
         this.address = address;
+        this.username = username;
         this.documentNumber = documentNumber;
         this.isPassport = isPassport;
         this.cityId = cityId;
@@ -92,6 +95,14 @@ public class PatientDto{
         this.address = address;
     }
 
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
     public String getDocumentNumber() {
         return documentNumber;
     }
@@ -108,11 +119,11 @@ public class PatientDto{
         isPassport = passport;
     }
 
-    public int getCityId() {
+    public Integer getCityId() {
         return cityId;
     }
 
-    public void setCityId(int cityId) {
+    public void setCityId(Integer cityId) {
         this.cityId = cityId;
     }
 

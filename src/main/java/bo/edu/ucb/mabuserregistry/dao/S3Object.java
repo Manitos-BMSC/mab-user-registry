@@ -1,7 +1,9 @@
 package bo.edu.ucb.mabuserregistry.dao;
 
 import jakarta.persistence.*;
+import org.springframework.stereotype.Service;
 
+@Service
 @Entity
 @Table(name = "s3_object")
 public class S3Object {
