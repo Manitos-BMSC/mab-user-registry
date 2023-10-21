@@ -1,13 +1,10 @@
 package bo.edu.ucb.mabuserregistry.bl;
 
-import bo.edu.ucb.mabuserregistry.dao.City;
-import bo.edu.ucb.mabuserregistry.dao.Pacient;
-import bo.edu.ucb.mabuserregistry.dao.Person;
+import bo.edu.ucb.mabuserregistry.dao.*;
 import bo.edu.ucb.mabuserregistry.dto.DoctorDto;
+import bo.edu.ucb.mabuserregistry.dto.FileDto;
 import bo.edu.ucb.mabuserregistry.dto.PatientDto;
-import bo.edu.ucb.mabuserregistry.repository.CityRepository;
-import bo.edu.ucb.mabuserregistry.repository.PacientRepository;
-import bo.edu.ucb.mabuserregistry.repository.PersonRepository;
+import bo.edu.ucb.mabuserregistry.repository.*;
 import bo.edu.ucb.mabuserregistry.service.FileUploaderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -34,9 +31,14 @@ public class RegistryBl {
     private Pacient pacient;
     @Autowired
     private PacientRepository pacientRepository;
+    @Autowired
+    private FilesPacientRepository filesPacientRepository;
 
     @Autowired
     private CityRepository cityRepository;
+
+    @Autowired
+    private S3ObjectRepository s3ObjectRepository;
 
 
 
@@ -88,13 +90,53 @@ public class RegistryBl {
         pacientRepository.save(pacient);
         logger.info("Pacient saved on database");
         logger.info("Uploading image to bucket: " + bucketImage);
-        fileUploaderService.uploadFile(image, bucketImage, false);
+        FileDto imageRes = fileUploaderService.uploadFile(image, bucketImage, false);
+        logger.info("Saving image on database");
+
+        FilesPacient filesPacient = new FilesPacient();
+        filesPacient.setFileDate(new Date());
+        filesPacient.setStatus(true);
+        S3Object imageS3 = s3ObjectRepository.findById(imageRes.getS3ObjectId()).get();
+        filesPacient.setS3Object(imageS3);
+        filesPacient.setPacient(pacient);
+        filesPacientRepository.save(filesPacient);
+
+
+
         logger.info("Uploading clinic history to bucket: " + bucketDocuments);
-        fileUploaderService.uploadFile(clinicHistory, bucketDocuments, false);
+        FileDto clinicHistoryRes = fileUploaderService.uploadFile(clinicHistory, bucketDocuments, false);
+
+        logger.info("Saving clinic history on database");
+        FilesPacient filesPacient2 = new FilesPacient();
+        filesPacient2.setFileDate(new Date());
+        filesPacient2.setStatus(true);
+        S3Object clinicHistoryS3 = s3ObjectRepository.findById(clinicHistoryRes.getS3ObjectId()).get();
+        filesPacient2.setS3Object(clinicHistoryS3);
+        filesPacient2.setPacient(pacient);
+        filesPacientRepository.save(filesPacient2);
+
         logger.info("Uploading video to bucket: " + bucketVideo);
-        fileUploaderService.uploadFile(participationVideo, bucketVideo, false);
+        FileDto videoRes = fileUploaderService.uploadFile(participationVideo, bucketVideo, false);
+        logger.info("Saving video on database");
+        FilesPacient filesPacient3 = new FilesPacient();
+        filesPacient3.setFileDate(new Date());
+        filesPacient3.setStatus(true);
+        S3Object videoS3 = s3ObjectRepository.findById(videoRes.getS3ObjectId()).get();
+        filesPacient3.setS3Object(videoS3);
+        filesPacient3.setPacient(pacient);
+        filesPacientRepository.save(filesPacient3);
+
         logger.info("Uploading personal document to bucket: " + personalInfo);
-        fileUploaderService.uploadFile(personalDocument, personalInfo, false);
+        FileDto personalDocumentFile = fileUploaderService.uploadFile(personalDocument, personalInfo, false);
+        logger.info("Saving personal document on database");
+        FilesPacient filesPacient4 = new FilesPacient();
+        filesPacient4.setFileDate(new Date());
+        filesPacient4.setStatus(true);
+        S3Object personalDocumentS3 = s3ObjectRepository.findById(personalDocumentFile.getS3ObjectId()).get();
+        filesPacient4.setS3Object(personalDocumentS3);
+        filesPacient4.setPacient(pacient);
+        filesPacientRepository.save(filesPacient4);
+
         return patientDto;
     }
 
