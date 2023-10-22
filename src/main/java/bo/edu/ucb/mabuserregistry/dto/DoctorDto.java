@@ -7,6 +7,7 @@ import java.util.Date;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class DoctorDto{
 
+    private int doctorId;
     private String name;
     private String lastName;
     private String email;
@@ -28,6 +29,25 @@ public class DoctorDto{
     public DoctorDto() {
     }
 
+    public DoctorDto(int doctorId, String name, String lastName, String email, String phone, Date birthDate, Boolean isMale, String address, String username, String documentNumber, Boolean isPassport, int cityId, String licenseCode, Date licenseDueDate, String speciality, int hospitalId) {
+        this.doctorId = doctorId;
+        this.name = name;
+        this.lastName = lastName;
+        this.email = email;
+        this.phone = phone;
+        this.birthDate = birthDate;
+        this.isMale = isMale;
+        this.address = address;
+        this.username = username;
+        this.documentNumber = documentNumber;
+        this.isPassport = isPassport;
+        this.cityId = cityId;
+        this.licenseCode = licenseCode;
+        this.licenseDueDate = licenseDueDate;
+        this.speciality = speciality;
+        this.hospitalId = hospitalId;
+    }
+
     public DoctorDto(String name, String lastName, String email, String phone, Date birthDate, Boolean isMale, String address, String username, String documentNumber, Boolean isPassport, int cityId, String licenseCode, Date licenseDueDate, String speciality, int hospitalId) {
         this.name = name;
         this.lastName = lastName;
@@ -44,6 +64,29 @@ public class DoctorDto{
         this.licenseDueDate = licenseDueDate;
         this.speciality = speciality;
         this.hospitalId = hospitalId;
+    }
+
+    public  DoctorDto(String name, String lastName, String speciality, String phone){
+        this.name = name;
+        this.lastName = lastName;
+        this.speciality = speciality;
+        this.phone = phone;
+    }
+
+    public DoctorDto(int doctorId, String name, String lastName, String speciality, String phone){
+        this.doctorId = doctorId;
+        this.name = name;
+        this.lastName = lastName;
+        this.speciality = speciality;
+        this.phone = phone;
+    }
+
+    public int getDoctorId() {
+        return doctorId;
+    }
+
+    public void setDoctorId(int doctorId) {
+        this.doctorId = doctorId;
     }
 
     public String getName() {
