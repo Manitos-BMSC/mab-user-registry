@@ -27,7 +27,7 @@ public class RegitryApi {
     }
 
     @PostMapping("/patient")
-    public ResponseEntity<ResponseDto<PatientDto>> createPatient(
+    public ResponseDto<PatientDto> createPatient(
             @RequestParam("data") String patientDtoJson,
             @RequestParam("image") MultipartFile image,
             @RequestParam("clinicHistory") MultipartFile clinicHistory,
@@ -44,7 +44,7 @@ public class RegitryApi {
         Boolean success = true;
         ResponseDto<PatientDto> response = new ResponseDto<>(success, message, code, patientResponse);
         System.out.println("response: " + response);
-        return ResponseEntity.status(HttpStatus.OK).body(response);
+        return response;
     }
 
     @PostMapping("/doctor")

@@ -6,6 +6,8 @@ import java.util.Date;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class PatientDto{
+
+    private Long patientId;
     private String name;
     private String lastName;
     private String email;
@@ -24,7 +26,8 @@ public class PatientDto{
     public PatientDto() {
     }
 
-    public PatientDto(String name, String lastName, String email, String phone, Date birthDate, Boolean isMale, String address, String username, String documentNumber, Boolean isPassport, Integer cityId, String emergencyPhone) {
+    public PatientDto(Long patientId, String name, String lastName, String email, String phone, Date birthDate, Boolean isMale, String address, String username, String documentNumber, Boolean isPassport, Integer cityId, String emergencyPhone) {
+        this.patientId = patientId;
         this.name = name;
         this.lastName = lastName;
         this.email = email;
@@ -37,6 +40,15 @@ public class PatientDto{
         this.isPassport = isPassport;
         this.cityId = cityId;
         this.emergencyPhone = emergencyPhone;
+    }
+
+
+    public Long getPatientId() {
+        return patientId;
+    }
+
+    public void setPatientId(Long patientId) {
+        this.patientId = patientId;
     }
 
     public String getName() {

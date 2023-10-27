@@ -90,7 +90,8 @@ public class RegistryBl {
         pacient.setEmergencyPhone(patientDto.getEmergencyPhone());
         pacient.setPacientStatus("Nuevo");
         pacient.setStatus(true);
-        pacientRepository.save(pacient);
+        Pacient pacientRegistred = pacientRepository.save(pacient);
+        patientDto.setPatientId(pacientRegistred.getId());
         logger.info("Pacient saved on database");
         logger.info("Uploading image to bucket: " + bucketImage);
         FileDto imageRes = fileUploaderService.uploadFile(image, bucketImage, false);
