@@ -6,6 +6,7 @@ import bo.edu.ucb.mabuserregistry.dto.FileDto;
 import bo.edu.ucb.mabuserregistry.dto.PatientDto;
 import bo.edu.ucb.mabuserregistry.repository.*;
 import bo.edu.ucb.mabuserregistry.service.FileUploaderService;
+import bo.edu.ucb.mabuserregistry.service.KeycloakTokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -13,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.Map;
 import java.util.Optional;
 import java.util.logging.Logger;
 
@@ -21,6 +23,9 @@ public class RegistryBl {
 
     @Autowired
     FileUploaderService fileUploaderService;
+
+    @Autowired
+    private KeycloakTokenService keycloakTokenService;
 
     @Autowired
     private Person person;
@@ -62,6 +67,16 @@ public class RegistryBl {
 
 
     public PatientDto createPatient(PatientDto patientDto, MultipartFile image, MultipartFile clinicHistory, MultipartFile participationVideo, MultipartFile personalDocument) {
+        logger.info("Getting token");
+        Map<String, ?> response = keycloakTokenService.getToken(
+                "client_credentials",
+                "mab_backend",
+                "mzhqeGKq8LiwBb9tQ6q1z4HONF6to3tr"
+        );
+
+        String token = "Bearer " + response.get("access_token");
+
+
         logger.info("Saving patient on database");
         person.setIdKeycloack("1"); //TODO put the keycloack id
         Optional<City> pacientCity = cityRepository.findById(patientDto.getCityId());
@@ -94,7 +109,7 @@ public class RegistryBl {
         patientDto.setPatientId(pacientRegistred.getId());
         logger.info("Pacient saved on database");
         logger.info("Uploading image to bucket: " + bucketImage);
-        FileDto imageRes = fileUploaderService.uploadFile(image, bucketImage, false);
+        FileDto imageRes = fileUploaderService.uploadFile(image, bucketImage, false, token);
         logger.info("Saving image on database");
 
         FilesPacient filesPacient = new FilesPacient();
@@ -108,7 +123,7 @@ public class RegistryBl {
 
 
         logger.info("Uploading clinic history to bucket: " + bucketDocuments);
-        FileDto clinicHistoryRes = fileUploaderService.uploadFile(clinicHistory, bucketDocuments, false);
+        FileDto clinicHistoryRes = fileUploaderService.uploadFile(clinicHistory, bucketDocuments, false, token);
 
         logger.info("Saving clinic history on database");
         FilesPacient filesPacient2 = new FilesPacient();
@@ -120,7 +135,7 @@ public class RegistryBl {
         filesPacientRepository.save(filesPacient2);
 
         logger.info("Uploading video to bucket: " + bucketVideo);
-        FileDto videoRes = fileUploaderService.uploadFile(participationVideo, bucketVideo, false);
+        FileDto videoRes = fileUploaderService.uploadFile(participationVideo, bucketVideo, false, token);
         logger.info("Saving video on database");
         FilesPacient filesPacient3 = new FilesPacient();
         filesPacient3.setFileDate(new Date());
@@ -131,7 +146,7 @@ public class RegistryBl {
         filesPacientRepository.save(filesPacient3);
 
         logger.info("Uploading personal document to bucket: " + personalInfo);
-        FileDto personalDocumentFile = fileUploaderService.uploadFile(personalDocument, personalInfo, false);
+        FileDto personalDocumentFile = fileUploaderService.uploadFile(personalDocument, personalInfo, false, token);
         logger.info("Saving personal document on database");
         FilesPacient filesPacient4 = new FilesPacient();
         filesPacient4.setFileDate(new Date());
@@ -145,6 +160,16 @@ public class RegistryBl {
     }
 
     public DoctorDto createDoctor(DoctorDto doctorDto, MultipartFile image) {
+
+        logger.info("Getting token");
+        Map<String, ?> response = keycloakTokenService.getToken(
+                "client_credentials",
+                "mab_backend",
+                "mzhqeGKq8LiwBb9tQ6q1z4HONF6to3tr"
+        );
+
+        String token = "Bearer " + response.get("access_token");
+
         logger.info("Saving doctor on database");
         person.setIdKeycloack("2"); //TODO put the keycloack id
         Optional<City> doctorCity = cityRepository.findById(doctorDto.getCityId());
@@ -168,7 +193,7 @@ public class RegistryBl {
 
         logger.info("Person saved on database");
         logger.info("Uploading image to bucket: " + bucketImage);
-        FileDto imageRes = fileUploaderService.uploadFile(image, bucketImage, false);
+        FileDto imageRes = fileUploaderService.uploadFile(image, bucketImage, false, token);
 
         logger.info("Saving doctor on database");
         Doctor doctor = new Doctor();
