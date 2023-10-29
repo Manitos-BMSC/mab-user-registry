@@ -28,3 +28,11 @@ minio:
     video: ${MINIO_BUCKET_VIDEO:mab-videos}
     documents: ${MINIO_BUCKET_DOCUMENTS:mab-documents}
     name: ${MINIO_BUCKET_PERSONAL:personal-info}
+
+management:
+  tracing:
+    sampling:
+      probability: 1.0
+logging:
+  pattern:
+    level: '%5p [${spring.application.name},%X{traceId:-},%X{spanId:-}]'

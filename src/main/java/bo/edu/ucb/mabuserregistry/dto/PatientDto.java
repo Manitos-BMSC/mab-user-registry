@@ -146,4 +146,23 @@ public class PatientDto{
     public void setEmergencyPhone(String emergencyPhone) {
         this.emergencyPhone = emergencyPhone;
     }
+
+    @Override
+    public String toString() {
+        return "PatientDto{" +
+                "patientId=" + patientId +
+                ", name='" + name + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", phone='" + phone + '\'' +
+                ", birthDate=" + birthDate +
+                ", isMale=" + isMale +
+                ", address='" + address + '\'' +
+                ", username='" + username + '\'' +
+                ", documentNumber='" + documentNumber + '\'' +
+                ", isPassport=" + isPassport +
+                ", cityId=" + cityId +
+                ", emergencyPhone='" + emergencyPhone + '\'' +
+                '}';
+    }
 }
