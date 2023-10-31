@@ -16,7 +16,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequestMapping(path = "api/v1/registry")
-@CrossOrigin(origins = "*")
 public class RegitryApi {
 
     private final RegistryBl registryBl;
