@@ -29,7 +29,7 @@ public class GlobalSecurityConfiguration {
             authorizeHttpRequests
                     .requestMatchers("/api/v1/doctor/*").hasAnyRole("doctorJefe", "doctor", "paciente")
                     .requestMatchers("/api/v1/registry/patient").authenticated()
-                    .requestMatchers("api/v1/registry/doctor").hasRole("doctorJefe")
+                    .requestMatchers("api/v1/registry/doctor").hasRole("doctor")
                     .anyRequest()
                     .denyAll();
         });

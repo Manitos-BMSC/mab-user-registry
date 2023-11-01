@@ -15,6 +15,8 @@ spring:
     hibernate:
       ddl-auto: none
     show-sql: true
+  zipkin:
+    base-url: http://192.241.149.226:9411
   security:
     oauth2:
       resource-server:
@@ -39,6 +41,6 @@ management:
   tracing:
     sampling:
       probability: 1.0
-logging:
-  pattern:
-    level: '%5p [${spring.application.name},%X{traceId:-},%X{spanId:-}]'
+#logging:
+#  pattern:
+#    level: '%5p [${spring.application.name},%X{traceId:-},%X{spanId:-}]'
