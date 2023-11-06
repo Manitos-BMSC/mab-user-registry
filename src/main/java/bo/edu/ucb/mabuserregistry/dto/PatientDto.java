@@ -8,6 +8,7 @@ import java.util.Date;
 public class PatientDto{
 
     private Long patientId;
+    private String keycloakId;
     private String name;
     private String lastName;
     private String email;
@@ -26,8 +27,9 @@ public class PatientDto{
     public PatientDto() {
     }
 
-    public PatientDto(Long patientId, String name, String lastName, String email, String phone, Date birthDate, Boolean isMale, String address, String username, String documentNumber, Boolean isPassport, Integer cityId, String emergencyPhone) {
+    public PatientDto(Long patientId, String keycloakId, String name, String lastName, String email, String phone, Date birthDate, Boolean isMale, String address, String username, String documentNumber, Boolean isPassport, Integer cityId, String emergencyPhone) {
         this.patientId = patientId;
+        this.keycloakId = keycloakId;
         this.name = name;
         this.lastName = lastName;
         this.email = email;
@@ -49,6 +51,14 @@ public class PatientDto{
 
     public void setPatientId(Long patientId) {
         this.patientId = patientId;
+    }
+
+    public String getKeycloakId() {
+        return keycloakId;
+    }
+
+    public void setKeycloakId(String keycloakId) {
+        this.keycloakId = keycloakId;
     }
 
     public String getName() {
@@ -147,10 +157,12 @@ public class PatientDto{
         this.emergencyPhone = emergencyPhone;
     }
 
+
     @Override
     public String toString() {
         return "PatientDto{" +
                 "patientId=" + patientId +
+                ", keycloakId='" + keycloakId + '\'' +
                 ", name='" + name + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +

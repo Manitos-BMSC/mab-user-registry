@@ -78,7 +78,7 @@ public class RegistryBl {
 
 
         logger.info("Saving patient on database");
-        person.setIdKeycloack("1"); //TODO put the keycloack id
+        person.setIdKeycloack(patientDto.getKeycloakId());
         Optional<City> pacientCity = cityRepository.findById(patientDto.getCityId());
         person.setCity(pacientCity.get());
         person.setName(patientDto.getName());
