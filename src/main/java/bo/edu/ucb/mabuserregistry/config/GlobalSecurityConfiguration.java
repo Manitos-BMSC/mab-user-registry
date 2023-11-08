@@ -30,8 +30,9 @@ public class GlobalSecurityConfiguration {
                     .requestMatchers("/api/v1/doctor/*").hasAnyRole("doctorJefe", "doctor", "paciente")
                     .requestMatchers("/api/v1/registry/patient").authenticated()
                     .requestMatchers("api/v1/registry/doctor").hasRole("doctor")
+                    .requestMatchers("/api/v1/registry/user-exist").permitAll()
                     .anyRequest()
-                    .denyAll();
+                    .permitAll();
         });
         http.oauth2ResourceServer( (oauth2) -> {
             oauth2.jwt( (jwt) -> jwt.jwtAuthenticationConverter(keycloakJwtTokenConverter));

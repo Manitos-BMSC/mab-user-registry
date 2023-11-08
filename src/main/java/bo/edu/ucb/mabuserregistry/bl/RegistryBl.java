@@ -14,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.logging.Logger;
@@ -210,6 +211,24 @@ public class RegistryBl {
         logger.info("Doctor saved on database");
         //TODO: Implementar la lógica de negocio para la creacion de nuevo doctor
         return doctorDto;
+    }
+
+    public Boolean userExist(String userId){
+        logger.info("Checking if user exist");
+        logger.info("userId: " + userId);
+        List<Person> person = personRepository.findAll();
+
+        for (Person actualPerson : person) {
+            logger.info("person1.getIdKeycloack(): " + actualPerson.getIdKeycloack());
+            if(actualPerson.getIdKeycloack().equals(userId)){
+                logger.info("User found");
+                logger.info(userId + " is equal to " + actualPerson.getIdKeycloack());
+                return true;
+            }
+        }
+
+        logger.info("User not found");
+        return false;
     }
 
 }
