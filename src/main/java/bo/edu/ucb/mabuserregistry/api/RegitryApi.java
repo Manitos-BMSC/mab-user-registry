@@ -63,8 +63,8 @@ public class RegitryApi {
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
-    @PostMapping("/user-exist")
-    public ResponseEntity<ResponseDto<Boolean>> userExist(@RequestBody() String userId) {
+    @GetMapping("/user-exist")
+    public ResponseEntity<ResponseDto<Boolean>> userExist(@RequestParam("userId") String userId) {
         Boolean exist = registryBl.userExist(userId);
         int code = 200;
         String message = "OK";
