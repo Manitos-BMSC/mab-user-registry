@@ -12,4 +12,6 @@ public interface HospitalDoctorRepository extends JpaRepository<HospitalDoctor, 
 
     List<HospitalDoctor> findAllByHospitalIdHospital(Long hospitalId);
 
+    List<HospitalDoctor> findAllByDoctorId(Long doctorId);
+
 }
