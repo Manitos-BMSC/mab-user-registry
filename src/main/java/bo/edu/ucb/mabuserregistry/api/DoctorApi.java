@@ -25,7 +25,7 @@ public class DoctorApi {
     private final Logger logger = LoggerFactory.getLogger(RegitryApi.class);
 
     @GetMapping("/{doctorId}")
-    public ResponseEntity<ResponseDto<DoctorDto>> getDoctor(
+    public ResponseDto<DoctorDto> getDoctor(
             @PathVariable("doctorId") int doctorId
     ) throws JsonProcessingException {
         logger.info("doctorId: " + doctorId);
@@ -34,17 +34,17 @@ public class DoctorApi {
         String message = "OK";
         Boolean success = true;
         ResponseDto<DoctorDto> response = new ResponseDto<>(success, message, code, doctorResponse);
-        return ResponseEntity.status(HttpStatus.OK).body(response);
+        return response;
     }
 
     @GetMapping("/doctors")
-    public ResponseEntity<ResponseDto<List<DoctorDto>>> getDoctors(){
+    public ResponseDto<List<DoctorDto>> getDoctors(){
         List<DoctorDto> doctors = doctorBl.getDoctors();
         int code = 200;
         String message = "OK";
         Boolean success = true;
         ResponseDto<List<DoctorDto>> response = new ResponseDto<>(success, message, code, doctors);
-        return ResponseEntity.status(HttpStatus.OK).body(response);
+        return response;
     }
 
     @GetMapping("/{doctorId}/hospitals")

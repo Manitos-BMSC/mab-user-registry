@@ -48,7 +48,7 @@ public class RegitryApi {
     }
 
     @PostMapping("/doctor")
-    public ResponseEntity<ResponseDto<DoctorDto>> createDoctor(
+    public ResponseDto<DoctorDto> createDoctor(
         @RequestParam("data") String doctorDtoJson,
         @RequestParam("doctorPicture") MultipartFile doctorPicture
     ) throws JsonProcessingException {
@@ -60,17 +60,17 @@ public class RegitryApi {
         String message = "OK";
         Boolean success = true;
         ResponseDto<DoctorDto> response = new ResponseDto<>(success, message, code, doctorResponse);
-        return ResponseEntity.status(HttpStatus.OK).body(response);
+        return response;
     }
 
     @GetMapping("/user-exist")
-    public ResponseEntity<ResponseDto<Boolean>> userExist(@RequestParam("userId") String userId) {
+    public ResponseDto<Boolean> userExist(@RequestParam("userId") String userId) {
         Boolean exist = registryBl.userExist(userId);
         int code = 200;
         String message = "OK";
         Boolean success = true;
         ResponseDto<Boolean> response = new ResponseDto<>(success, message, code, exist);
-        return ResponseEntity.status(HttpStatus.OK).body(response);
+        return response;
     }
 
 }
