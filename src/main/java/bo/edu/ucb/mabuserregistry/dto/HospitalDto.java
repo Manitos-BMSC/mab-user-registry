@@ -1,37 +1,24 @@
-package bo.edu.ucb.mabuserregistry.dao;
+package bo.edu.ucb.mabuserregistry.dto;
 
-import jakarta.persistence.*;
+import bo.edu.ucb.mabuserregistry.dao.Hospital;
+import bo.edu.ucb.mabuserregistry.dao.HospitalDoctor;
 
+import java.util.ArrayList;
 import java.util.List;
 
-@Entity
-@Table(name = "MAB_hospital")
-public class Hospital {
+public class HospitalDto {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_hospital")
     private int idHospital;
-
-    @Column(name = "name")
     private String name;
-
-    @Column(name = "direction")
     private String direction;
-
-    @Column(name = "contact_number")
     private String contactNumber;
-
-    @Column(name = "status")
     private boolean status;
+    private List<HospitalDoctorDto> hospitalDoctors;
 
-    @OneToMany(mappedBy = "hospital", cascade = CascadeType.ALL)
-    private List<HospitalDoctor> hospitalDoctors;
-
-    public Hospital() {
+    public HospitalDto() {
     }
 
-    public Hospital(int idHospital, String name, String direction, String contactNumber, boolean status, List<HospitalDoctor> hospitalDoctors) {
+    public HospitalDto(int idHospital, String name, String direction, String contactNumber, boolean status, List<HospitalDoctorDto> hospitalDoctors) {
         this.idHospital = idHospital;
         this.name = name;
         this.direction = direction;
@@ -39,6 +26,16 @@ public class Hospital {
         this.status = status;
         this.hospitalDoctors = hospitalDoctors;
     }
+
+    public HospitalDto(Hospital hospital) {
+        this.idHospital = hospital.getIdHospital();
+        this.name = hospital.getName();
+        this.direction = hospital.getDirection();
+        this.contactNumber = hospital.getContactNumber();
+        this.status = hospital.isStatus();
+    }
+
+    // Getters and Setters
 
     public int getIdHospital() {
         return idHospital;
@@ -80,11 +77,12 @@ public class Hospital {
         this.status = status;
     }
 
-    public List<HospitalDoctor> getHospitalDoctors() {
+    public List<HospitalDoctorDto> getHospitalDoctors() {
         return hospitalDoctors;
     }
 
-    public void setHospitalDoctors(List<HospitalDoctor> hospitalDoctors) {
+    public void setHospitalDoctors(List<HospitalDoctorDto> hospitalDoctors) {
         this.hospitalDoctors = hospitalDoctors;
     }
+
 }

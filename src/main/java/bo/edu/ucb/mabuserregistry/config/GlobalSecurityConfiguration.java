@@ -2,6 +2,7 @@ package bo.edu.ucb.mabuserregistry.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -27,10 +28,15 @@ public class GlobalSecurityConfiguration {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests( (authorizeHttpRequests) -> {
             authorizeHttpRequests
-                    .requestMatchers("/api/v1/doctor/*").hasAnyRole("doctorJefe", "doctor", "paciente")
+                    .requestMatchers("/api/v1/doctor/**").hasAnyRole("doctorJefe", "doctor", "paciente")
                     .requestMatchers("/api/v1/registry/patient").authenticated()
                     .requestMatchers("api/v1/registry/doctor").hasRole("doctor")
                     .requestMatchers("/api/v1/registry/user-exist").permitAll()
+                    .requestMatchers( HttpMethod.POST ,"/api/v1/hospital").hasRole("doctorJefe")
+                    .requestMatchers( HttpMethod.PUT ,"/api/v1/hospital/**").hasRole("doctorJefe")
+                    .requestMatchers( HttpMethod.GET ,"/api/v1/hospital/**").permitAll()
+                    .requestMatchers( HttpMethod.GET ,"/api/v1/hospital/**").permitAll()
+                    .requestMatchers( HttpMethod.POST ,"/api/v1/hospital/**").hasRole("doctorJefe")
                     .anyRequest()
                     .permitAll();
         });

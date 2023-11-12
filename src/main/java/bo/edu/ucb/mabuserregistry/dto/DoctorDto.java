@@ -1,5 +1,7 @@
 package bo.edu.ucb.mabuserregistry.dto;
 
+import bo.edu.ucb.mabuserregistry.dao.Doctor;
+import bo.edu.ucb.mabuserregistry.dao.Person;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.util.Date;
@@ -79,6 +81,13 @@ public class DoctorDto{
         this.lastName = lastName;
         this.speciality = speciality;
         this.phone = phone;
+    }
+
+    public DoctorDto(Doctor doctor){
+        this.doctorId = doctor.getId();
+        this.licenseCode = doctor.getLicenseCode();
+        this.licenseDueDate = doctor.getLicenseDueDate();
+        this.speciality = doctor.getMedicalSpeciality();
     }
 
     public int getDoctorId() {
