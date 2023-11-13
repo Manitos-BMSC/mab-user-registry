@@ -25,6 +25,19 @@ public class HospitalApi {
         this.hospitalBl = hospitalBl;
     }
 
+    @GetMapping("/hospitals")
+    public ResponseDto<List<HospitalDto>> getHospitals(){
+        logger.info("getHospitals");
+        List<HospitalDto> hospitalsResponse = hospitalBl.getHospitals();
+        int code = 200;
+        String message = "OK";
+        Boolean success = true;
+        ResponseDto<List<HospitalDto>> response = new ResponseDto<>(success, message, code, hospitalsResponse);
+        System.out.println("response: " + response);
+        return response;
+    }
+
+
     @PostMapping()
     public ResponseDto<HospitalDto> postNewHospital(
             @RequestBody HospitalDto hospitalDto

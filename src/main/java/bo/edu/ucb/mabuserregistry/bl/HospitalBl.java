@@ -37,6 +37,20 @@ public class HospitalBl {
         this.doctorRepository = doctorRepository;
     }
 
+    public List<HospitalDto> getHospitals() {
+        List<Hospital> hospitals = hospitalRepository.findAllByStatusIsTrue();
+        List<HospitalDto> hospitalsDto = new ArrayList<>();
+        for (Hospital hospital : hospitals) {
+            HospitalDto hospitalDto = new HospitalDto();
+            hospitalDto.setIdHospital(hospital.getIdHospital());
+            hospitalDto.setName(hospital.getName());
+            hospitalDto.setContactNumber(hospital.getContactNumber());
+            hospitalDto.setDirection(hospital.getDirection());
+            hospitalsDto.add(hospitalDto);
+        }
+        return hospitalsDto;
+    }
+
     public HospitalDto postNewHospital(HospitalDto hospitalDto) {
         Hospital hospital = new Hospital();
         hospital.setName(hospitalDto.getName());
