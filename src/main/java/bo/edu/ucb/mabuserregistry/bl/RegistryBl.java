@@ -207,10 +207,29 @@ public class RegistryBl {
         doctor.setStatus(true);
 
         personRepository.save(person);
-        doctorRepository.save(doctor);
+        Doctor savedDoctor = doctorRepository.save(doctor);
         logger.info("Doctor saved on database");
         //TODO: Implementar la lógica de negocio para la creacion de nuevo doctor
-        return doctorDto;
+
+        DoctorDto savedDoctorDto = new DoctorDto();
+        savedDoctorDto.setDoctorId(savedDoctor.getId());
+        savedDoctorDto.setLicenseCode(savedDoctor.getLicenseCode());
+        savedDoctorDto.setLicenseDueDate(savedDoctor.getLicenseDueDate());
+        savedDoctorDto.setSpeciality(savedDoctor.getMedicalSpeciality());
+        savedDoctorDto.setPhone(savedDoctor.getPerson().getPhoneNumber());
+        savedDoctorDto.setName(savedDoctor.getPerson().getName());
+        savedDoctorDto.setLastName(savedDoctor.getPerson().getLastname());
+        savedDoctorDto.setEmail(savedDoctor.getPerson().getUserMail());
+        savedDoctorDto.setBirthDate(savedDoctor.getPerson().getBirthDate());
+        savedDoctorDto.setMale(savedDoctor.getPerson().isGender());
+        savedDoctorDto.setAddress(savedDoctor.getPerson().getAddress());
+        savedDoctorDto.setDocumentNumber(savedDoctor.getPerson().getDocumentNumber());
+        savedDoctorDto.setPassport(savedDoctor.getPerson().isDocumentType());
+        savedDoctorDto.setCityId(savedDoctor.getPerson().getCity().getId());
+        savedDoctorDto.setUsername(savedDoctor.getPerson().getUsername());
+
+
+        return savedDoctorDto;
     }
 
     public Boolean userExist(String userId){
