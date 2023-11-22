@@ -3,8 +3,10 @@ package bo.edu.ucb.mabuserregistry.api;
 
 import bo.edu.ucb.mabuserregistry.bl.DoctorBl;
 import bo.edu.ucb.mabuserregistry.dto.DoctorDto;
+import bo.edu.ucb.mabuserregistry.dto.HospitalDoctorDto;
 import bo.edu.ucb.mabuserregistry.dto.HospitalDto;
 import bo.edu.ucb.mabuserregistry.dto.ResponseDto;
+import brave.Response;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -57,6 +59,20 @@ public class DoctorApi {
         String message = "OK";
         Boolean success = true;
         ResponseDto<List<HospitalDto>> response = new ResponseDto<>(success, message, code, hospitals);
+        System.out.println("response: " + response);
+        return response;
+    }
+
+    @GetMapping("/{doctorId}/hospital-doctor")
+    public ResponseDto<List<HospitalDoctorDto>> getHospitalDoctorsByDoctor(
+            @PathVariable Long doctorId
+    ){
+        logger.info("getHospitalDoctorsByDoctor");
+        List<HospitalDoctorDto> hospitalDoctors = doctorBl.getHospitalDoctorsByDoctor(doctorId);
+        int code = 200;
+        String message = "OK";
+        Boolean success = true;
+        ResponseDto<List<HospitalDoctorDto>> response = new ResponseDto<>(success, message, code, hospitalDoctors);
         System.out.println("response: " + response);
         return response;
     }

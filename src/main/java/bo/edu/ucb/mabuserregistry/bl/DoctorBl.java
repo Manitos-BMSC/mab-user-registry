@@ -3,6 +3,7 @@ package bo.edu.ucb.mabuserregistry.bl;
 import bo.edu.ucb.mabuserregistry.dao.Doctor;
 import bo.edu.ucb.mabuserregistry.dao.HospitalDoctor;
 import bo.edu.ucb.mabuserregistry.dto.DoctorDto;
+import bo.edu.ucb.mabuserregistry.dto.HospitalDoctorDto;
 import bo.edu.ucb.mabuserregistry.dto.HospitalDto;
 import bo.edu.ucb.mabuserregistry.repository.HospitalDoctorRepository;
 import bo.edu.ucb.mabuserregistry.repository.PersonRepository;
@@ -70,6 +71,21 @@ public class DoctorBl {
         }
 
         return hospitals;
+    }
+
+    public List<HospitalDoctorDto> getHospitalDoctorsByDoctor(Long doctorId){
+        List<HospitalDoctor> hospitalDoctors = hospitalDoctorRepository.findAllByDoctorId(doctorId);
+        List<HospitalDoctorDto> hospitalDoctorsDto = new ArrayList<>();
+
+        for (HospitalDoctor hospitalDoctor : hospitalDoctors) {
+            HospitalDoctorDto hospitalDoctorDto = new HospitalDoctorDto();
+            hospitalDoctorDto.setDoctor(new DoctorDto(hospitalDoctor.getDoctor()));
+            hospitalDoctorDto.setHospital(new HospitalDto(hospitalDoctor.getHospital()));
+            hospitalDoctorDto.setId(hospitalDoctor.getId());
+            hospitalDoctorsDto.add(hospitalDoctorDto);
+        }
+
+        return hospitalDoctorsDto;
     }
 
 
