@@ -49,6 +49,8 @@ public class RegistryBl {
     @Autowired
     private DoctorRepository doctorRepository;
 
+    @Autowired HospitalDoctorRepository hospitalDoctorRepository;
+
 
 
 
@@ -228,6 +230,13 @@ public class RegistryBl {
         savedDoctorDto.setCityId(savedDoctor.getPerson().getCity().getId());
         savedDoctorDto.setUsername(savedDoctor.getPerson().getUsername());
 
+        HospitalDoctor hospitalDoctor = new HospitalDoctor();
+        Hospital hospital = new Hospital();
+        hospital.setIdHospital(doctorDto.getHospitalId());
+        hospitalDoctor.setDoctor(savedDoctor);
+        hospitalDoctor.setHospital(hospital);
+
+        hospitalDoctorRepository.save(hospitalDoctor);
 
         return savedDoctorDto;
     }
