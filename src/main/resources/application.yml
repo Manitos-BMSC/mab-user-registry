@@ -44,6 +44,68 @@ management:
   zipkin:
     tracing:
       endpoint: http://192.241.149.226:9411/api/v2/spans
+
+security-constraints:
+  constraints:
+    - auth-roles:
+      - permitAll
+      security-collections:
+      - name: doctor
+        patterns:
+          - /api/v1/doctor/**
+        methods:
+
+    - auth-roles:
+      - permitAll
+      security-collections:
+      - name: registry-patient
+        patterns:
+          - /api/v1/registry/patient
+        methods:
+
+    - auth-roles:
+        - doctor
+      security-collections:
+        - name: registry-doctor
+          patterns:
+            - /api/v1/registry/doctor
+          methods:
+
+    - auth-roles:
+        - permitAll
+      security-collections:
+        - name: user-exist
+          patterns:
+            - /api/v1/registry/user-exist
+          methods:
+
+    - auth-roles:
+        - doctorJefe
+      security-collections:
+        - name: hospital
+          patterns:
+            - /api/v1/hospital
+          methods:
+            - POST
+
+    - auth-roles:
+        - doctorJefe
+      security-collections:
+        - name: hospital
+          patterns:
+            - /api/v1/hospital/**
+          methods:
+            - PUT
+            - POST
+
+    - auth-roles:
+        - permitAll
+      security-collections:
+        - name: hospital
+          patterns:
+            - /api/v1/hospital/**
+          methods:
+            - GET
 #logging:
 #  pattern:
 #    level: '%5p [${spring.application.name},%X{traceId:-},%X{spanId:-}]'
