@@ -46,7 +46,7 @@ minio:
 security-constraints:
   constraints:
     - auth-roles:
-      - permitAll
+        - permitAll
       security-collections:
       - name: doctor
         patterns:
@@ -54,7 +54,7 @@ security-constraints:
         methods:
 
     - auth-roles:
-      - permitAll
+        - permitAll
       security-collections:
       - name: registry-patient
         patterns:
@@ -62,7 +62,7 @@ security-constraints:
         methods:
 
     - auth-roles:
-        - doctor
+        - permitAll
       security-collections:
         - name: registry-doctor
           patterns:
