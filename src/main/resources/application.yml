@@ -56,18 +56,19 @@ security-constraints:
     - auth-roles:
         - permitAll
       security-collections:
-      - name: registry-patient
-        patterns:
-          - /api/v1/registry/patient
-        methods:
+        - name: registry-patient
+          patterns:
+            - /api/v1/registry/patient
+          methods:
 
     - auth-roles:
-        - permitAll
+        - doctorJefe
       security-collections:
         - name: registry-doctor
           patterns:
             - /api/v1/registry/doctor
           methods:
+            - POST
 
     - auth-roles:
         - permitAll
