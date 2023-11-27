@@ -29,7 +29,6 @@ eureka:
     client:
       service-url:
         defaultZone: ${EUREKA_SERVER_URI:http://localhost:8761/eureka/}
-
 management:
   tracing:
     sampling:
@@ -37,6 +36,12 @@ management:
   zipkin:
     tracing:
       endpoint: ${ZIPKIN_SERVER_URI:http://192.241.149.226:9411/api/v2/spans}
+minio:
+  bucket:
+    image: ${MINIO_BUCKET_IMAGE:mab-images}
+    video: ${MINIO_BUCKET_VIDEO:mab-videos}
+    documents: ${MINIO_BUCKET_DOCUMENTS:mab-documents}
+    name: ${MINIO_BUCKET_PERSONAL:personal-info}
 
 security-constraints:
   constraints:
