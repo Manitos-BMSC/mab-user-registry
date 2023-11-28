@@ -23,12 +23,14 @@ spring:
         jwt:
           issuer-uri: ${KEYCLOAK_REALM:http://192.241.149.226:8080/realms/mab-manitos}
           jwk-set-uri: ${KEYCLOAK_OPEN_ID:http://192.241.149.226:8080/realms/mab-manitos/protocol/openid-connect/certs}
+
 server:
   port: ${PORT:7000}
 eureka:
-    client:
-      service-url:
-        defaultZone: ${EUREKA_SERVER_URI:http://localhost:8761/eureka/}
+  client:
+    service-url:
+      defaultZone: ${EUREKA_SERVER_URI:http://localhost:8761/eureka/}
+
 management:
   tracing:
     sampling:
@@ -42,16 +44,15 @@ minio:
     video: ${MINIO_BUCKET_VIDEO:mab-videos}
     documents: ${MINIO_BUCKET_DOCUMENTS:mab-documents}
     name: ${MINIO_BUCKET_PERSONAL:personal-info}
-
 security-constraints:
   constraints:
     - auth-roles:
         - permitAll
       security-collections:
-      - name: doctor
-        patterns:
-          - /api/v1/doctor/**
-        methods:
+        - name: doctor
+          patterns:
+            - /api/v1/doctor/**
+          methods:
 
     - auth-roles:
         - permitAll
